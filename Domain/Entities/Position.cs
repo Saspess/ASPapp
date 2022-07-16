@@ -7,6 +7,6 @@ namespace Domain.Entities
         public string Name { get; set; } = null!;
         public int Salary { get; set; }
 
-        public Employee Employee { get; set; } = null!;
+        public ICollection<Employee> Employees { get; set; } = null!;
     }
 }

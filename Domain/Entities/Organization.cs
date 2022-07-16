@@ -7,6 +7,6 @@ namespace Domain.Entities
         public string Name { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
 
-        public List<Department> Departments { get; set; } = null!;
+        public ICollection<Department> Departments { get; set; } = null!;
     }
 }

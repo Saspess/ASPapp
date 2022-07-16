@@ -4,15 +4,13 @@ namespace Domain.Entities
 {
     public class Department : BaseEntity
     {
+        public int AddressId { get; set; }
+        public int OrganizationId { get; set; }
         public string Name { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
 
-        public int OrganizationId { get; set; }
-        public Organization Organization { get; set; } = null!;
-
-        public int AddressId { get; set; }
+        public Organization Organization { get; set; } = null!;        
         public Address Address { get; set; } = null!;
-
-        public List<Employee> Employees { get; set; } = null!;
+        public ICollection<Employee> Employees { get; set; } = null!;
     }
 }
