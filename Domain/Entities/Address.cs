@@ -8,6 +8,9 @@ namespace Domain.Entities
         public string? Street { get; set; }
         public string? HouseNumber { get; set; }
 
+        public Department Department { get; set; } = null!;
+
+        public Employee Employee { get; set; } = null!;
     }
 }
  
