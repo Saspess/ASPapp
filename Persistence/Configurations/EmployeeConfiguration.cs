@@ -11,11 +11,15 @@ namespace Persistence.Configurations
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
 
+            builder.Property(e => e.AddressId).IsRequired();
+            builder.Property(e => e.DepartmentId).IsRequired();
+            builder.Property(e => e.PositionId).IsRequired();
             builder.Property(e => e.FirstName).HasMaxLength(50).IsRequired();
             builder.Property(e => e.LastName).HasMaxLength(50).IsRequired();
             builder.Property(e => e.PhoneNumber).HasMaxLength(50).IsRequired();
             builder.HasIndex(e => e.PhoneNumber).IsUnique();
-            builder.HasCheckConstraint("Birthday", "YEAR(Birthday) < 2022 AND YEAR(Birthday) > 1922");
+            builder.Property(e => e.Birthday).IsRequired();
+            builder.HasCheckConstraint("Birthday", "(YEAR(Birthday) < (YEAR(CURDATE()) - 18) AND YEAR(Birthday) > (YEAR(CURDATE()) - 100)");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
-using Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Persistence.Contexts
 {
@@ -14,15 +14,9 @@ namespace Persistence.Contexts
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public async Task<int> SaveChangesAsync() => await base.SaveChangesAsync();
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AddressConfiguration());
-            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
-            modelBuilder.ApplyConfiguration(new OrganizationConfiguration());
-            modelBuilder.ApplyConfiguration(new PositionConfiguration());
-            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }
