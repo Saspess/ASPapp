@@ -13,7 +13,8 @@ namespace Persistence.Configurations
 
             builder.Property(a => a.City).HasMaxLength(50).IsRequired();
             builder.Property(a => a.Street).HasMaxLength(50).IsRequired();
-            builder.Property(a => a.HouseNumber).HasMaxLength(50).IsRequired();
+            builder.Property(a => a.HouseNumber).IsRequired();
+            builder.Property(a => a.HouseCode).HasMaxLength(10);
         }
     }
 }
