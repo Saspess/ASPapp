@@ -9,7 +9,6 @@ namespace Persistence.IoC
     {
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<ApplicationDbContext>(opts =>
-            opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), b =>
-            b.MigrationsAssembly("CompanyEmployees")));
+            opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
     }
 }

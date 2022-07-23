@@ -19,7 +19,7 @@ namespace Persistence.Configurations
             builder.Property(e => e.PhoneNumber).HasMaxLength(50).IsRequired();
             builder.HasIndex(e => e.PhoneNumber).IsUnique();
             builder.Property(e => e.Birthday).IsRequired();
-            builder.HasCheckConstraint("Birthday", "DATEDIFF(year, CURDATE(), Birthdat");
+            builder.HasCheckConstraint("Birthday", "DATEDIFF(year, CURDATE(), Birthday) > 18");
         }
     }
 }
