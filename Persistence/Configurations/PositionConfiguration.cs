@@ -13,6 +13,7 @@ namespace Persistence.Configurations
 
             builder.Property(p => p.Name).HasMaxLength(50).IsRequired();
             builder.HasIndex(p => p.Name).IsUnique();
+
             builder.Property(p => p.Salary).HasMaxLength(50).IsRequired();
         }
     }
