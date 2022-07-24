@@ -12,7 +12,7 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220724121413_InitialCreate")]
+    [Migration("20220724145612_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,9 +131,6 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId")
-                        .IsUnique();
-
                     b.HasIndex("DepartmentId");
 
                     b.HasIndex("PhoneNumber")
@@ -143,7 +140,7 @@ namespace Persistence.Migrations
 
                     b.ToTable("Employees");
 
-                    b.HasCheckConstraint("Birthday", "DATEDIFF(year, CURDATE(), Birthday) >= 18");
+                    b.HasCheckConstraint("Birthday", "DATEDIFF(year, GETDATE(), Birthday) >= 18");
                 });
 
             modelBuilder.Entity("Domain.Entities.Organization", b =>
@@ -221,12 +218,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Employee", b =>
                 {
-                    b.HasOne("Domain.Entities.Address", "Address")
-                        .WithOne("Employee")
-                        .HasForeignKey("Domain.Entities.Employee", "AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Department", "Department")
                         .WithMany("Employees")
                         .HasForeignKey("DepartmentId")
@@ -239,8 +230,6 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Address");
-
                     b.Navigation("Department");
 
                     b.Navigation("Position");
@@ -249,9 +238,6 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Address", b =>
                 {
                     b.Navigation("Department")
-                        .IsRequired();
-
-                    b.Navigation("Employee")
                         .IsRequired();
                 });
 

@@ -14,6 +14,5 @@ namespace Domain.Entities
 
         public Department Department { get; set; } = null!;
         public Position Position { get; set; } = null!;
-        public Address Address { get; set; } = null!;
     }
 }

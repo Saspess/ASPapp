@@ -98,13 +98,7 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.Id);
-                    table.CheckConstraint("Birthday", "DATEDIFF(year, CURDATE(), Birthday) >= 18");
-                    table.ForeignKey(
-                        name: "FK_Employees_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.CheckConstraint("Birthday", "DATEDIFF(year, GETDATE(), Birthday) >= 18");
                     table.ForeignKey(
                         name: "FK_Employees_Departments_DepartmentId",
                         column: x => x.DepartmentId,
@@ -140,12 +134,6 @@ namespace Persistence.Migrations
                 name: "IX_Departments_PhoneNumber",
                 table: "Departments",
                 column: "PhoneNumber",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_AddressId",
-                table: "Employees",
-                column: "AddressId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
