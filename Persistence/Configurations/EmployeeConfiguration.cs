@@ -26,7 +26,7 @@ namespace Persistence.Configurations
             builder.HasIndex(e => e.PhoneNumber).IsUnique();
 
             builder.Property(e => e.Birthday).IsRequired().HasConversion<DateOnlyConverter>().HasColumnType("date");
-            builder.HasCheckConstraint("Birthday", "DATEDIFF(year, GETDATE(), Birthday) >= 18");
+            builder.HasCheckConstraint("Birthday", "DATEDIFF(year, Birthday, CONVERT(date, GETDATE())) >= 18");
         }
     }
 }
