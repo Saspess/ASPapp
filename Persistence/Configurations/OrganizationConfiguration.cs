@@ -13,6 +13,7 @@ namespace Persistence.Configurations
 
             builder.Property(o => o.Name).HasMaxLength(100).IsRequired();
             builder.HasIndex(o => o.Name).IsUnique();
+
             builder.Property(o => o.PhoneNumber).HasMaxLength(50).IsRequired();
             builder.HasIndex(o => o.PhoneNumber).IsUnique();
         }

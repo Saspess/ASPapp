@@ -11,8 +11,13 @@ namespace Persistence.Configurations
             builder.HasKey(d => d.Id);
             builder.Property(d => d.Id).ValueGeneratedOnAdd();
 
+            builder.Property(d => d.OrganizationId).IsRequired();
+
+            builder.Property(d => d.AddressId).IsRequired();
+
             builder.Property(d => d.Name).HasMaxLength(100).IsRequired();
             builder.HasIndex(d => d.Name).IsUnique();
+
             builder.Property(d => d.PhoneNumber).HasMaxLength(50).IsRequired();
             builder.HasIndex(d => d.PhoneNumber).IsUnique();
         }
