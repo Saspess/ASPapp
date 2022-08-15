@@ -12,8 +12,6 @@ namespace Persistence.Configurations
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
 
-            builder.Property(e => e.AddressId).IsRequired();
-
             builder.Property(e => e.DepartmentId).IsRequired();
 
             builder.Property(e => e.PositionId).IsRequired();

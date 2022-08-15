@@ -35,25 +35,15 @@ namespace Persistence.Repositories
 
         public virtual async Task UpdateAsync(TEntity entity)
         {
-            var isExists = await AppContext.Set<TEntity>().AnyAsync(e => e.Id == entity.Id);
-            if (!isExists)
-            {
-                throw new NotFoundException("An entity doesn't exist in the database");
-            }
-
             AppContext.Set<TEntity>().Update(entity);
             await AppContext.SaveChangesAsync();
         }
 
         public virtual async Task DeleteAsync(int id)
         {
-            var isExists = await AppContext.Set<TEntity>().FindAsync(id);
-            if (isExists == null)
-            {
-                throw new NotFoundException("An entity doesn't exist in the database");
-            }
-
-            AppContext.Set<TEntity>().Remove(isExists);
+            var entity = await AppContext.Set<TEntity>().FindAsync(id);
+            
+            AppContext.Set<TEntity>().Remove(entity);
             await AppContext.SaveChangesAsync();
         }
     }

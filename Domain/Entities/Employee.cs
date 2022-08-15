@@ -6,7 +6,6 @@ namespace Domain.Entities
     {
         public int DepartmentId { get; set; }
         public int PositionId { get; set; }
-        public int AddressId { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public DateOnly Birthday { get; set; }
