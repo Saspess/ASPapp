@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.ConfigureSqlContext(builder.Configuration);
+builder.Services.ConfigureAutoMapper();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle;
 
 builder.Services.AddEndpointsApiExplorer();

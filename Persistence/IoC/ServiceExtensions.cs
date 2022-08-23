@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Persistence.IoC
 {
@@ -10,5 +11,8 @@ namespace Persistence.IoC
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<ApplicationDbContext>(opts =>
             opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
+
+        public static void ConfigureAutoMapper(this IServiceCollection services) =>
+            services.AddAutoMapper(Assembly.Load("Application"));
     }
 }
