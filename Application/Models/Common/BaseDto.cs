@@ -1,0 +1,7 @@
+﻿namespace Application.Models.Common
+{
+    public abstract class BaseDto
+    {
+        public int Id { get; set; }
+    }
+}
