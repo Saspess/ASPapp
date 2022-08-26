@@ -1,6 +1,6 @@
-﻿using Application.Models.Common;
+﻿using Application.Dtos.Common;
 
-namespace Application.Models.Employee
+namespace Application.Dtos
 {
     public class EmployeeDto : BaseDto
     {

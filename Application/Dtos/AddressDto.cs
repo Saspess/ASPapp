@@ -1,6 +1,6 @@
-﻿using Application.Models.Common;
+﻿using Application.Dtos.Common;
 
-namespace Application.Models.Address
+namespace Application.Dtos
 {
     public class AddressDto : BaseDto
     {

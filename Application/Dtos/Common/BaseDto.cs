@@ -1,4 +1,4 @@
-﻿namespace Application.Models.Common
+﻿namespace Application.Dtos.Common
 {
     public abstract class BaseDto
     {
