@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Application.Common.Interfaces.Contexts;
 using Application.Common.Interfaces.Repositories;
-using Application.Common.Interfaces.Contexts;
-using Application.Common.Exceptions;
 using Domain.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Repositories
 {
@@ -42,7 +41,7 @@ namespace Persistence.Repositories
         public virtual async Task DeleteAsync(int id)
         {
             var entity = await AppContext.Set<TEntity>().FindAsync(id);
-            
+
             AppContext.Set<TEntity>().Remove(entity);
             await AppContext.SaveChangesAsync();
         }
