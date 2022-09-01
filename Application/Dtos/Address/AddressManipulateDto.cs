@@ -1,6 +1,6 @@
-﻿namespace Application.Dtos
+﻿namespace Application.Dtos.Address
 {
-    public class AddressForCreateDto
+    public abstract class AddressManipulateDto
     {
         public string City { get; set; } = null!;
         public string Street { get; set; } = null!;

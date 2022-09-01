@@ -1,8 +1,6 @@
-﻿using Application.Dtos.Common;
-
-namespace Application.Dtos
+﻿namespace Application.Dtos.Organization
 {
-    public class OrganizationDto : BaseDto
+    public abstract class OrganizationManipulateDto
     {
         public string Name { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;

@@ -1,6 +1,6 @@
-﻿namespace Application.Dtos
+﻿namespace Application.Dtos.Position
 {
-    public class PositionForCreateDto
+    public abstract class PositionManupulateDto
     {
         public string Name { get; set; } = null!;
         public int Salary { get; set; }

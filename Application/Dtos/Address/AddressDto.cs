@@ -1,8 +1,8 @@
 ﻿using Application.Dtos.Common;
 
-namespace Application.Dtos
+namespace Application.Dtos.Address
 {
-    public class AddressForUpdateDto : BaseForUpdateDto
+    public class AddressDto : BaseDto
     {
         public string City { get; set; } = null!;
         public string Street { get; set; } = null!;

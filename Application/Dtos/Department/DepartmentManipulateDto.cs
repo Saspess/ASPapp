@@ -1,8 +1,6 @@
-﻿using Application.Dtos.Common;
-
-namespace Application.Dtos
+﻿namespace Application.Dtos.Department
 {
-    public class DepartmentForUpdateDto : BaseForUpdateDto
+    public abstract class DepartmentManipulateDto
     {
         public int AddressId { get; set; }
         public int OrganizationId { get; set; }

@@ -1,4 +1,4 @@
-﻿using Application.Dtos;
+﻿using Application.Dtos.Position;
 using AutoMapper;
 using Domain.Entities;
 

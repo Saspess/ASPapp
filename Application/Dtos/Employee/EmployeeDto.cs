@@ -1,6 +1,6 @@
 ﻿using Application.Dtos.Common;
 
-namespace Application.Dtos
+namespace Application.Dtos.Employee
 {
     public class EmployeeDto : BaseDto
     {

@@ -1,6 +1,6 @@
-﻿namespace Application.Dtos
+﻿namespace Application.Dtos.Employee
 {
-    public class EmployeeForCreateDto
+    public abstract class EmployeeManipulateDto
     {
         public int DepartmentId { get; set; }
         public int PositionId { get; set; }
