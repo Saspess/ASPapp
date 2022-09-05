@@ -9,6 +9,10 @@ namespace Application.Common.Mappings
         public EmployeeProfile()
         {
             CreateMap<Employee, EmployeeDto>();
+
+            CreateMap<Employee, EmployeeForCreateDto>();
+
+            CreateMap<Employee, EmployeeForUpdateDto>();
         }
     }
 }

@@ -9,6 +9,10 @@ namespace Application.Common.Mappings
         public DepartmentProfile()
         {
             CreateMap<Department, DepartmentDto>();
+
+            CreateMap<Department, DepartmentForCreateDto>();
+
+            CreateMap<Department, DepartmentForUpdateDto>();
         }
     }
 }

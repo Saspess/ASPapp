@@ -9,6 +9,10 @@ namespace Application.Common.Mappings
         public OrganizationProfile()
         {
             CreateMap<Organization, OrganizationDto>();
+
+            CreateMap<Organization, OrganizationForCreateDto>();
+
+            CreateMap<Organization, OrganizationForUpdateDto>();
         }
     }
 }

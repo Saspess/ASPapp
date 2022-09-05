@@ -9,6 +9,10 @@ namespace Application.Common.Mappings
         public AddressProfile()
         {
             CreateMap<Address, AddressDto>();
+
+            CreateMap<Address, AddressForCreateDto>();
+
+            CreateMap<Address, AddressForUpdateDto>();
         }
     }
 }

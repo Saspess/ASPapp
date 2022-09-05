@@ -9,6 +9,10 @@ namespace Application.Common.Mappings
         public PositionProfile()
         {
             CreateMap<Position, PositionDto>();
+
+            CreateMap<Position, PositionForCreateDto>();
+
+            CreateMap<Position, PositionForUpdateDto>();
         }
     }
 }
