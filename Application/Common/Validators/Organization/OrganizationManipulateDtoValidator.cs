@@ -1,13 +1,12 @@
-﻿using Application.Common.Validators.Helpers;
-using Application.Common.Interfaces.Validators;
-using Domain.Entities;
-using FluentValidation;
+﻿using FluentValidation;
+using Application.Dtos.Organization;
+using Application.Common.Validators.Helpers;
 
-namespace Application.Common.Validators.Entities
+namespace Application.Common.Validators.Organization
 {
-    public class OrganizationValidator : BaseValidator<Organization>, IOrganizationValidator
+    public abstract class OrganizationManipulateDtoValidator<T> : AbstractValidator<T> where T : OrganizationManipulateDto
     {
-        public OrganizationValidator()
+        public OrganizationManipulateDtoValidator()
         {
             RuleFor(o => o.Name)
                 .Must(o => o.All(char.IsLetter)).WithMessage("Error in organization name")

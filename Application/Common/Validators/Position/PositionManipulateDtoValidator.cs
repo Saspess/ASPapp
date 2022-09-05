@@ -1,12 +1,11 @@
-﻿using Application.Common.Interfaces.Validators;
-using Domain.Entities;
-using FluentValidation;
+﻿using FluentValidation;
+using Application.Dtos.Position;
 
-namespace Application.Common.Validators.Entities
+namespace Application.Common.Validators.Position
 {
-    public class PositionValidator : BaseValidator<Position>, IPositionValidator
+    public abstract class PositionManipulateDtoValidator<T> : AbstractValidator<T> where T : PositionManupulateDto
     {
-        public PositionValidator()
+        public PositionManipulateDtoValidator()
         {
             RuleFor(p => p.Name)
                 .Must(p => p.All(char.IsLetter)).WithMessage("Error in position name")

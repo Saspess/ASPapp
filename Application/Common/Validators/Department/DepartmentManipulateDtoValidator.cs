@@ -1,13 +1,12 @@
-﻿using Domain.Entities;
-using FluentValidation;
+﻿using FluentValidation;
+using Application.Dtos.Department;
 using Application.Common.Validators.Helpers;
-using Application.Common.Interfaces.Validators;
 
-namespace Application.Common.Validators.Entities
+namespace Application.Common.Validators.Department
 {
-    public class DepartmentValidator : BaseValidator<Department>, IDepartmentValidator
+    public abstract class DepartmentManipulateDtoValidator<T> : AbstractValidator<T> where T : DepartmentManipulateDto
     {
-        public DepartmentValidator()
+        public DepartmentManipulateDtoValidator()
         {
             RuleFor(d => d.AddressId)
                 .NotEmpty().WithMessage("Id can't be empty");

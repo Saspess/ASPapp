@@ -1,13 +1,12 @@
-﻿using Application.Common.Validators.Helpers;
-using Application.Common.Interfaces.Validators;
-using Domain.Entities;
-using FluentValidation;
+﻿using FluentValidation;
+using Application.Dtos.Employee;
+using Application.Common.Validators.Helpers;
 
-namespace Application.Common.Validators.Entities
+namespace Application.Common.Validators.Employee
 {
-    public class EmployeeValidator : BaseValidator<Employee>, IEmployeeValidator
+    public abstract class EmployeeManipulateDtoValidator<T> : AbstractValidator<T> where T : EmployeeManipulateDto
     {
-        public EmployeeValidator()
+        public EmployeeManipulateDtoValidator()
         {
             RuleFor(e => e.DepartmentId)
                .NotEmpty().WithMessage("Deparment id can't be empty");

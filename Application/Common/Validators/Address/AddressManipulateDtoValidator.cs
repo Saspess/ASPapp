@@ -1,19 +1,18 @@
-﻿using Domain.Entities;
-using Application.Common.Interfaces.Validators;
-using FluentValidation;
+﻿using FluentValidation;
+using Application.Dtos.Address;
 
-namespace Application.Common.Validators.Entities
+namespace Application.Common.Validators.Address
 {
-    public class AddressValidator : BaseValidator<Address>, IAddressValidator
+    public abstract class AddressManipulateDtoValidator<T> : AbstractValidator<T> where T : AddressManipulateDto
     {
-        public AddressValidator()
+        public AddressManipulateDtoValidator()
         {
             RuleFor(a => a.City)
                 .Must(a => a.All(char.IsLetter)).WithMessage("Error in city name")
                 .NotEmpty().WithMessage("City can't be empty");
 
             RuleFor(a => a.Street)
-                .Must(a => a.All(char.IsLetter)).WithMessage("Error in stret name")
+                .Must(a => a.All(char.IsLetter)).WithMessage("Error in street name")
                 .NotEmpty().WithMessage("Street can't be empty");
 
             RuleFor(a => a.HouseNumber)
