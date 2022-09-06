@@ -10,9 +10,9 @@ namespace Application.Common.Mappings
         {
             CreateMap<Employee, EmployeeDto>();
 
-            CreateMap<Employee, EmployeeForCreateDto>();
+            CreateMap<EmployeeForCreateDto, Employee>();
 
-            CreateMap<Employee, EmployeeForUpdateDto>();
+            CreateMap<EmployeeForUpdateDto, Employee>();
         }
     }
 }

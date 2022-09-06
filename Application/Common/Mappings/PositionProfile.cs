@@ -10,9 +10,9 @@ namespace Application.Common.Mappings
         {
             CreateMap<Position, PositionDto>();
 
-            CreateMap<Position, PositionForCreateDto>();
+            CreateMap<PositionForCreateDto, Position>();
 
-            CreateMap<Position, PositionForUpdateDto>();
+            CreateMap<PositionForUpdateDto, Position>();
         }
     }
 }

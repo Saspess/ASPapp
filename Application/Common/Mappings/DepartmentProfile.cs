@@ -10,9 +10,9 @@ namespace Application.Common.Mappings
         {
             CreateMap<Department, DepartmentDto>();
 
-            CreateMap<Department, DepartmentForCreateDto>();
+            CreateMap<DepartmentForCreateDto, Department>();
 
-            CreateMap<Department, DepartmentForUpdateDto>();
+            CreateMap<DepartmentForUpdateDto, Department>();
         }
     }
 }

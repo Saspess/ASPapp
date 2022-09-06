@@ -10,9 +10,9 @@ namespace Application.Common.Mappings
         {
             CreateMap<Address, AddressDto>();
 
-            CreateMap<Address, AddressForCreateDto>();
+            CreateMap<AddressForCreateDto, Address>();
 
-            CreateMap<Address, AddressForUpdateDto>();
+            CreateMap<AddressForUpdateDto, Address>();
         }
     }
 }
