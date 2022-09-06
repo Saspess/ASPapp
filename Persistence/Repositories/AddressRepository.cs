@@ -7,6 +7,7 @@ namespace Persistence.Repositories
     public class AddressRepository : GenericRepository<Address>, IAddressRepository
     {
         public AddressRepository(IApplicationDbContext appContext) : base(appContext)
-        { }
+        {
+        }
     }
 }
