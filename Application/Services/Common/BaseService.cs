@@ -6,6 +6,6 @@ namespace Application.Services.Common
     {
         protected IMapper mapper;
 
-        public BaseService(IMapper mapper) => this.mapper = mapper;
+        public BaseService(IMapper mapper) => this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 }
