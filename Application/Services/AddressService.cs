@@ -1,25 +1,22 @@
-﻿using Application.Common.Interfaces.Repositories;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces.Services;
+using Application.Common.Interfaces.UOW;
+using Application.Dtos.Address;
 using Application.Services.Common;
 using AutoMapper;
-using Application.Dtos.Address;
-using Application.Common.Exceptions;
 using Domain.Entities;
-using Application.Common.Interfaces.Services;
 
 namespace Application.Services
 {
     public class AddressService : BaseService, IAddressService
     {
-        private readonly IAddressRepository _addressRepository;
-
-        public AddressService(IMapper mapper, IAddressRepository addressRepository) : base(mapper)
+        public AddressService(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
-            _addressRepository = addressRepository ?? throw new ArgumentNullException(nameof(addressRepository));
         }
 
         public async Task<IEnumerable<AddressDto>> GetAllAsync()
         {
-            var addresses = await _addressRepository.GetAllAsync() ?? throw new NotFoundException();
+            var addresses = await unitOfWork.AddressRepository.GetAllAsync();
             var addressesDtos = mapper.Map<IEnumerable<AddressDto>>(addresses);
 
             return addressesDtos;
@@ -27,7 +24,7 @@ namespace Application.Services
 
         public async Task<AddressDto> GetByIdAsync(int id)
         {
-            var address = await _addressRepository.GetByIdAsync(id) ?? throw new NotFoundException();
+            var address = await unitOfWork.AddressRepository.GetByIdAsync(id);
 
             var addressDto = mapper.Map<AddressDto>(address);
 
@@ -36,35 +33,37 @@ namespace Application.Services
 
         public async Task CreateAsync(AddressForCreateDto addressForCreateDto)
         {
-            if(addressForCreateDto == null)
+            if (addressForCreateDto == null)
             {
                 throw new ArgumentNullException(nameof(addressForCreateDto));
             }
-            
+
             var address = mapper.Map<Address>(addressForCreateDto);
 
-            await _addressRepository.CreateAsync(address);
+            await unitOfWork.AddressRepository.CreateAsync(address);
         }
 
         public async Task UpdateAsync(AddressForUpdateDto addressForUpdateDto)
         {
-            if(addressForUpdateDto == null)
+            if (addressForUpdateDto == null)
             {
                 throw new ArgumentNullException(nameof(addressForUpdateDto));
             }
 
-            var checkAddress = _addressRepository.GetByIdAsync(addressForUpdateDto.Id) ?? throw new NotFoundException();
+            var checkAddress = await unitOfWork.AddressRepository.GetByIdAsync(addressForUpdateDto.Id) 
+                ?? throw new NotFoundException("Address was not found");
 
             var address = mapper.Map<Address>(addressForUpdateDto);
 
-            await _addressRepository.UpdateAsync(address);
+            await unitOfWork.AddressRepository.UpdateAsync(address);
         }
 
         public async Task DeleteAsync(int id)
         {
-            var checkAddress = await _addressRepository.GetByIdAsync(id) ?? throw new NotFoundException();
+            var checkAddress = await unitOfWork.AddressRepository.GetByIdAsync(id) 
+                ?? throw new NotFoundException("Address was not found");
 
-            await _addressRepository.DeleteAsync(id);        
+            await unitOfWork.AddressRepository.DeleteAsync(id);
         }
     }
 }

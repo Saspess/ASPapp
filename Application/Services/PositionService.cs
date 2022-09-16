@@ -1,25 +1,22 @@
-﻿using Application.Common.Interfaces.Repositories;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces.Services;
+using Application.Common.Interfaces.UOW;
+using Application.Dtos.Position;
 using Application.Services.Common;
 using AutoMapper;
-using Application.Dtos.Position;
-using Application.Common.Exceptions;
 using Domain.Entities;
-using Application.Common.Interfaces.Services;
 
 namespace Application.Services
 {
     public class PositionService : BaseService, IPositionService
     {
-        private readonly IPositionRepository _positionRepository;
-
-        public PositionService(IMapper mapper, IPositionRepository positionRepository) : base(mapper)
+        public PositionService(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
-            _positionRepository = positionRepository ?? throw new ArgumentNullException(nameof(positionRepository));
         }
 
         public async Task<IEnumerable<PositionDto>> GetAllAsync()
         {
-            var positions = await _positionRepository.GetAllAsync() ?? throw new NotFoundException();
+            var positions = await unitOfWork.PositionRepository.GetAllAsync();
             var positionsDtos = mapper.Map<IEnumerable<PositionDto>>(positions);
 
             return positionsDtos;
@@ -27,7 +24,7 @@ namespace Application.Services
 
         public async Task<PositionDto> GetByIdAsync(int id)
         {
-            var position = await _positionRepository.GetByIdAsync(id) ?? throw new NotFoundException();
+            var position = await unitOfWork.PositionRepository.GetByIdAsync(id);
             var positionDto = mapper.Map<PositionDto>(position);
 
             return positionDto;
@@ -35,35 +32,37 @@ namespace Application.Services
 
         public async Task CreateAsync(PositionForCreateDto positionForCreateDto)
         {
-            if(positionForCreateDto == null)
+            if (positionForCreateDto == null)
             {
                 throw new ArgumentNullException(nameof(positionForCreateDto));
             }
 
             var position = mapper.Map<Position>(positionForCreateDto);
 
-            await _positionRepository.CreateAsync(position);
+            await unitOfWork.PositionRepository.CreateAsync(position);
         }
 
         public async Task UpdateAsync(PositionForUpdateDto positionForUpdateDto)
         {
-            if(positionForUpdateDto == null)
+            if (positionForUpdateDto == null)
             {
                 throw new ArgumentNullException(nameof(positionForUpdateDto));
             }
 
-            var checkPosition = await _positionRepository.GetByIdAsync(positionForUpdateDto.Id) ?? throw new NotFoundException();
+            var checkPosition = await unitOfWork.PositionRepository.GetByIdAsync(positionForUpdateDto.Id) 
+                ?? throw new NotFoundException("Position was not found");
 
             var position = mapper.Map<Position>(positionForUpdateDto);
 
-            await _positionRepository.UpdateAsync(position);
+            await unitOfWork.PositionRepository.UpdateAsync(position);
         }
 
         public async Task DeleteAsync(int id)
         {
-            var checkPosition = await _positionRepository.GetByIdAsync(id) ?? throw new NotFoundException();
+            var checkPosition = await unitOfWork.PositionRepository.GetByIdAsync(id) 
+                ?? throw new NotFoundException("Position was not found");
 
-            await _positionRepository.DeleteAsync(id);
+            await unitOfWork.PositionRepository.DeleteAsync(id);
         }
     }
 }

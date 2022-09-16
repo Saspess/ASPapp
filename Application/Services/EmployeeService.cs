@@ -1,25 +1,22 @@
-﻿using Application.Common.Interfaces.Repositories;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces.Services;
+using Application.Common.Interfaces.UOW;
+using Application.Dtos.Employee;
 using Application.Services.Common;
 using AutoMapper;
-using Application.Dtos.Employee;
-using Application.Common.Exceptions;
 using Domain.Entities;
-using Application.Common.Interfaces.Services;
 
 namespace Application.Services
 {
     public class EmployeeService : BaseService, IEmployeeService
     {
-        private readonly IEmployeeRepository _employeeRepository;
-
-        public EmployeeService(IMapper mapper, IEmployeeRepository employeeRepository) : base(mapper)
+        public EmployeeService(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
-            _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
         }
 
         public async Task<IEnumerable<EmployeeDto>> GetAllAsync()
         {
-            var employees = await _employeeRepository.GetAllAsync() ?? throw new NotFoundException();
+            var employees = await unitOfWork.EmployeeRepository.GetAllAsync();
             var employeesDtos = mapper.Map<IEnumerable<EmployeeDto>>(employees);
 
             return employeesDtos;
@@ -27,7 +24,7 @@ namespace Application.Services
 
         public async Task<EmployeeDto> GetByIdAsync(int id)
         {
-            var employee = await _employeeRepository.GetByIdAsync(id) ?? throw new NotFoundException();
+            var employee = await unitOfWork.EmployeeRepository.GetByIdAsync(id);
 
             var employeeDto = mapper.Map<EmployeeDto>(employee);
 
@@ -36,35 +33,49 @@ namespace Application.Services
 
         public async Task CreateAsync(EmployeeForCreateDto employeeForCreateDto)
         {
-            if(employeeForCreateDto == null)
+            if (employeeForCreateDto == null)
             {
                 throw new ArgumentNullException(nameof(employeeForCreateDto));
             }
 
+            var checkDepartment = await unitOfWork.DepartmentRepository.GetByIdAsync(employeeForCreateDto.DepartmentId)
+                ?? throw new NotFoundException("Department was not found");
+
+            var checkPosition = await unitOfWork.PositionRepository.GetByIdAsync(employeeForCreateDto.PositionId)
+                ?? throw new NotFoundException("Position was not found");
+
             var employee = mapper.Map<Employee>(employeeForCreateDto);
 
-            await _employeeRepository.CreateAsync(employee);
+            await unitOfWork.EmployeeRepository.CreateAsync(employee);
         }
 
         public async Task UpdateAsync(EmployeeForUpdateDto employeeForUpdateDto)
         {
-            if(employeeForUpdateDto == null)
+            if (employeeForUpdateDto == null)
             {
                 throw new ArgumentNullException(nameof(employeeForUpdateDto));
             }
 
-            var checkEmployee = await _employeeRepository.GetByIdAsync(employeeForUpdateDto.Id) ?? throw new NotFoundException();
+            var checkEmployee = await unitOfWork.EmployeeRepository.GetByIdAsync(employeeForUpdateDto.Id)
+                ?? throw new NotFoundException("Employee was not found");
+
+            var checkDepartment = await unitOfWork.DepartmentRepository.GetByIdAsync(employeeForUpdateDto.DepartmentId)
+                ?? throw new NotFoundException("Department was not found");
+
+            var checkPosition = await unitOfWork.PositionRepository.GetByIdAsync(employeeForUpdateDto.PositionId)
+                ?? throw new NotFoundException("Position was not found");
 
             var employee = mapper.Map<Employee>(employeeForUpdateDto);
 
-            await _employeeRepository.UpdateAsync(employee);
+            await unitOfWork.EmployeeRepository.UpdateAsync(employee);
         }
 
         public async Task DeleteAsync(int id)
         {
-            var checkEmployee = await _employeeRepository.GetByIdAsync(id) ?? throw new NotFoundException();
+            var checkEmployee = await unitOfWork.EmployeeRepository.GetByIdAsync(id) 
+                ?? throw new NotFoundException("Employee was not found");
 
-            await _employeeRepository.DeleteAsync(id);
+            await unitOfWork.EmployeeRepository.DeleteAsync(id);
         }
     }
 }
