@@ -1,10 +1,11 @@
 ﻿using Application.Common.Interfaces.Contexts;
 using Application.Common.Interfaces.Repositories;
+using Application.Common.Interfaces.UOW;
 using Persistence.Repositories;
 
 namespace Persistence.UOW
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly IApplicationDbContext _context;
 
