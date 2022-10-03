@@ -1,11 +1,5 @@
-using Application.Common.Interfaces.Contexts;
-using Application.Common.Interfaces.Repositories;
-using Application.Common.Interfaces.Services;
-using Application.Services;
-using Persistence.Contexts;
 using Application.IoC;
 using Persistence.IoC;
-using Persistence.Repositories;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,16 +18,11 @@ builder.Services.ConfigureServices();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-/*
-builder.Services.AddScoped<IAddressService, AddressService>();
-builder.Services.AddScoped<IDepartmentService, DepartmentSevice>();
 
-builder.Services.AddScoped<IAddressRepository, AddressRepository>();
-builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();*/
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
